@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta Modulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/simulation-styles.css">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content" style="position: relative;">
+            <div class="title-section">
+                <h1 class="main-title">Delta Modulation</h1>
+                <!--<p class="subtitle">Virtual Lab Simulation</p> -->
+            </div>
+            <div style="
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0px 0px;">
+                <p style="
+                    margin: 0;
+                    font-size: 1rem;
+                    color: #ddd;
+                    text-align: right;
+                    line-height: 1.5;">
+                        Puducherry<br>Technological<br>University
+                </p>
+                <img src="../assets/images/logo.png"
+                    alt="Logo"
+                    style="width: 70px; height: auto;">
+            </div>
+        </div>
+    </header>
+
+    <nav class="navigation">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="../../index.html">AIM</a></li>
+            <li class="nav-item"><a href="theory.html">BLOCK DIAGRAM</a></li>
+            <li class="nav-item"><a href="practical.html">PRACTICAL CIRCUIT</a></li>
+            <li class="nav-item"><a href="noise.html">THEORY-NOISES</a></li> 
+            <li class="nav-item"><a href="steps.html">SIMULATION SEPS</a></li>
+            <li class="nav-item active"><a href="simulation.html">SIMULATION</a></li>
+            <li class="nav-item"><a href="reference.html">REFERENCES</a></li>
+        </ul>
+    </nav>
+
+    <main class="simulation-main">
+        <div class="simulation-container">
+            <!-- Left Section: Input and Functional Blocks -->
+            <div class="left-section">
+                <h3 style="margin: 20px 0 10px 0; font-size: 1.4em; font-weight: 600; color: #282a2c;">Modulator:</h3>
+                <!-- Interactive Input Blocks (Top Row of Modulator) -->
+                <div class="interactive-blocks-grid">
+                    <!-- Message Signal Block -->
+                    <div class="input-block">
+                        <h3 class="block-title">Message Signal</h3>
+                        <div class="input-row">
+                            <label for="A">Amplitude (V)</label>
+                            <input type="number" id="A" value="1" step="1">
+                        </div>
+                        <div class="input-row">
+                            <label for="fm1">Frequency (Hz)</label>
+                            <input type="number" id="fm1" value="10" step="10">
+                        </div>
+                        <svg width="160" height="190" style="display: block;">
+                        <line x1="57.25" y1="12.5" x2="57.25" y2="34.5" stroke="#282a2c" stroke-width="2"/>
+                        </svg>
+                    </div>
+
+                    <!-- Sampling Signal Block -->
+                    <div class="input-block">
+                        <h3 class="block-title">Sampling Signal</h3>
+                        <div class="input-row">
+                            <label for="Fd">Frequency (Hz)</label>
+                            <input type="number" id="Fd" value="300" step="10">
+                        </div>
+                         <svg width="160" height="190" style="display: block;">
+                        <line x1="56" y1="67.5" x2="56" y2="89.5" stroke="#282a2c" stroke-width="2"/>
+                        </svg>
+                    </div>
+
+                    <!-- RC Time Constant Block -->
+                    <div class="input-block">
+                        <h3 class="block-title">RC Time Constant</h3>
+                        <div class="input-row">
+                            <label for="RC">RC Value</label>
+                            <input type="number" id="RC" value="0.02" step="0.001">
+                        </div>
+                        <div class="toggle-row">
+                            <label for="autoSet">AutoSet</label>
+                            <div class="toggle-switch" id="autoSet" >
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        <svg width="160" height="190" style="display: block;">
+                        <line x1="54" y1="48" x2="54" y2="70" stroke="#282a2c" stroke-width="2"/>
+                        </svg>
+                    </div>
+               
+                </div>
+
+                <!-- Functional Block Diagram (Modulator) -->
+                <div class="diagram-wrapper">
+                    <svg width="500" height="190" style="display: block;">
+                        <!--Vertical arrows from input blocks to processing blocks -->
+                        <!-- Arrow from Message Signal to Comparator -->
+                        <line x1="70" y1="0" x2="70" y2="55" stroke="#282a2c" stroke-width="2"/>
+                        <polygon points="70,60 67,50 73,50" fill="#282a2c"/>
+
+                        <!-- Arrow from Sampling Signal to Digital Sampler -->
+                        <line x1="240" y1="0" x2="240" y2="55" stroke="#282a2c" stroke-width="2"/>
+                        <polygon points="240,60 237,50 243,50" fill="#282a2c"/>
+
+                        <!-- Arrow from RC Time Constant to Integrator -->
+                        <line x1="410" y1="0" x2="410" y2="55" stroke="#282a2c" stroke-width="2"/>
+                        <polygon points="410,60 407,50 413,50" fill="#282a2c"/>
+
+                        <!-- Processing blocks positioned in SVG -->
+                        <g>
+                            <!-- Comparator Block -->
+                            <rect x="0" y="60" width="140" height="50" rx="8" fill="#fafafa" stroke="#282a2c" stroke-width="1"/>
+                            <text x="70" y="90" font-size="13" fill="#555555" text-anchor="middle" font-weight="500">Comparator</text>
+
+                            <!-- Arrow from Comparator to Digital Sampler -->
+                            <line x1="140" y1="85" x2="165" y2="85" stroke="#282a2c" stroke-width="2"/>
+                            <polygon points="170,85 160,82 160,88" fill="#282a2c"/>
+
+                            <!-- Digital Sampler Block -->
+                            <rect x="170" y="60" width="140" height="50" rx="8" fill="#fafafa" stroke="#282a2c" stroke-width="1"/>
+                            <text x="240" y="90" font-size="13" fill="#555555" text-anchor="middle" font-weight="500">Digital Sampler</text>
+
+                            <!-- Arrow from Digital Sampler to Integrator -->
+                            <line x1="310" y1="85" x2="335" y2="85" stroke="#282a2c" stroke-width="2"/>
+                            <polygon points="340,85 330,82 330,88" fill="#282a2c"/>
+
+                            <!-- Integrator Block -->
+                            <rect x="340" y="60" width="140" height="50" rx="8" fill="#fafafa" stroke="#282a2c" stroke-width="1"/>
+                            <text x="410" y="90" font-size="13" fill="#555555" text-anchor="middle" font-weight="500">Integrator</text>
+                        </g>
+
+                        <!-- Feedback path from Integrator back to Comparator -->
+                        <g>
+                            <!-- Vertical line down from Integrator -->
+                            <line x1="410" y1="110" x2="410" y2="140" stroke="#282a2c" stroke-width="2"/>
+
+                            <!-- Horizontal line across -->
+                            <line x1="410" y1="140" x2="70" y2="140" stroke="#282a2c" stroke-width="2"/>
+
+                            <!-- Vertical line up to Comparator bottom -->
+                            <line x1="70" y1="140" x2="70" y2="110" stroke="#282a2c" stroke-width="2"/>
+                            <polygon points="70,110 67,120 73,120" fill="#282a2c"/>
+
+                            <!-- Feedback label -->
+                            <text x="240" y="165" font-size="14" fill="#282a2c" text-anchor="middle" font-weight="500">Feedback</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <h3 style="margin: 20px 0 10px 0; font-size: 1.4em; font-weight: 600; color: #282a2c;">Demodulator:</h3>
+                <!-- Functional Block Diagram (Demodulator) -->
+                 <div class="diagram-wrapper">
+                    <svg width="500" height="120" style="display:block; margin:auto;">
+                        <g transform="translate(-20,-37)">
+
+                            <!-- Arrow: To Integrator -->
+                            <text x="50" y="48" font-size="14" fill="#282a2c" text-anchor="middle" font-weight="500">Digital</text>
+                            <text x="50" y="65" font-size="14" fill="#282a2c" text-anchor="middle" font-weight="500">Sampler</text>
+                            <text x="50" y="82" font-size="14" fill="#282a2c" text-anchor="middle" font-weight="500">Output</text>
+                            <line x1="0" y1="95" x2="85" y2="95" stroke="#282a2c" stroke-width="2"/>
+                            <polygon points="90,95 80,91 80,99" fill="#282a2c"/>
+
+                            <!-- Integrator Block -->
+                            <rect x="90" y="70" width="130" height="70" rx="8" fill="#fafafa" stroke="#282a2c" stroke-width="1"/>
+                            <text x="155" y="95" font-size="13" fill="#555555" text-anchor="middle" dominant-baseline="middle" font-weight="500">
+                            Accumulator
+                            </text>
+                            <text x="155" y="113" font-size="13" fill="#555555" text-anchor="middle" dominant-baseline="middle" font-weight="500">
+                            (Integrator)
+                            </text>
+
+                            <!-- Arrow: Integrator → LPF -->
+                            <line x1="220" y1="95" x2="250" y2="95" stroke="#282a2c" stroke-width="2"/>
+                            <polygon points="255,95 245,91 245,99" fill="#282a2c"/>
+
+                            <!-- LPF Block -->
+                            <rect x="255" y="70" width="200" height="70" rx="8" fill="#fafafa" stroke="#282a2c" stroke-width="1"/>
+                            <text x="356" y="95" font-size="13" fill="#555555" text-anchor="middle" dominant-baseline="middle" font-weight="500">
+                            Reconstruction Filter
+                            </text>
+                            <text x="356" y="113" font-size="13" fill="#555555" text-anchor="middle" dominant-baseline="middle" font-weight="500">
+                            (Low Pass Filter)
+                            </text>
+
+                             <!-- Arrow: From LPF -->
+                            <text x="490" y="65" font-size="14" fill="#282a2c" text-anchor="middle" font-weight="500">LPF</text>
+                            <text x="490" y="82" font-size="14" fill="#282a2c" text-anchor="middle" font-weight="500">Output</text>
+                            <line x1="455" y1="95" x2="510" y2="95" stroke="#282a2c" stroke-width="2"/>
+                            <polygon points="515,95 505,91 505,99" fill="#282a2c"/>
+                        </g>
+                    </svg>
+                </div>
+                
+                <!-- Simulate Button -->
+                <button class="simulate-btn" onclick="simulateDM()">Simulate</button>
+            </div>
+
+            <!-- Right Section: Graph Container -->
+            <div class="right-section" id="rightSection">
+                <div class="graph-header">
+                    <h2 class="graph-title">Simulation Response</h2>
+                    <div class="toggle-row">
+                        <label for="stepApprox">Staircase Approximation</label>
+                        <div class="toggle-switch" id="stepApprox">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="plot1" class="graph-container"></div>
+            </div>
+
+            <!-- Resize Handle -->
+            <div class="resize-handle" id="resizeHandle"></div>
+        </div>
+    </main>
+
+    <script src="../assets/scripts/script1.js"></script>
+    <script src="../assets/scripts/script2.js"></script>
+    <script src="../assets/scripts/simulation-script.js"></script>
+</body>
+</html>

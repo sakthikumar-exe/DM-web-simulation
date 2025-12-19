@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta Modulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content" style="position: relative;">
+            <div class="title-section">
+                <h1 class="main-title">Delta Modulation</h1>
+                <!--<p class="subtitle">Virtual Lab Simulation</p> -->
+            </div>
+            <div style="
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0px 0px;">
+                <p style="
+                    margin: 0;
+                    font-size: 1rem;
+                    color: #ddd;
+                    text-align: right;
+                    line-height: 1.5;">
+                        Puducherry<br>Technological<br>University
+                </p>
+                <img src="../assets/images/logo.png"
+                    alt="Logo"
+                    style="width: 70px; height: auto;">
+            </div>
+        </div>
+    </header>
+   
+</div>
+    <nav class="navigation">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="../../index.html">AIM</a></li>
+            <li class="nav-item active"><a href="theory.html">BLOCK DIAGRAM</a></li>
+            <li class="nav-item"><a href="practical.html">PRACTICAL CIRCUIT</a></li>
+            <li class="nav-item"><a href="noise.html">THEORY-NOISES</a></li> 
+            <li class="nav-item"><a href="steps.html">SIMULATION SEPS</a></li>
+            <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
+            <li class="nav-item"><a href="reference.html">REFERENCES</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h2 class="content-title">Block Diagram</h2>
+        <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px;">
+            <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/images/block.jpg"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <p style="font-style: italic; color: #666; margin-top: 10px; text-align: center;">Figure 1: Modulator Block Diagram</p>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/images/reciever.png"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <p style="font-style: italic; color: #666; margin-top: 10px; text-align: center;">Figure 2: Demodulator Block Diagram</p>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/images/approx.png"
+                alt="Delta Modulation Staircase Approximation" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <p style="font-style: italic; color: #666; margin-top: 10px; text-align: center;">Figure 3: Staircase Approximation</p>
+            </div>
+        </div>
+        <div class="content-body">
+            <br><br>
+                <p> Delta modulation is a digital signal encoding technique that converts analog signals into digital data by transmitting only one bit per sample, representing whether the input amplitude has increased or decreased from the previous step. The modulator employs a staircase approximation that tries to follow the shape of the input analog signal using discrete step increments and decrements, based on the comparison with the previous sample. This staircase signal is generated with a fixed step size, Δ, resulting in the output being confined to two levels (+Δ or -Δ) for each sampling instant.</p>
+                <h3>Modulator Working:</h3>
+            
+                <p>- The incoming signal enters the first summing block, where it is compared with the system’s own internally generated staircase value.<br>- The summing block subtracts the staircase value from the input, producing an error signal. This error simply tells whether the input is higher or lower than the staircase.</p>
+
+                <p>- This error is then fed into a 1-bit quantizer. The quantizer checks the sign of the error. If the error is positive, the quantizer outputs a “1", else it outputs "0" </p>
+
+                <p>- The quantizer output is fed into the accumulator. The accumulator adds a fixed step (Δ) either positively or negatively depending on whether the bit was “1” or “0".<br>- This updated value then goes through a one-sample delay block to store this staircase value until the next sample time, so it can be used for the next comparison. </p>
+
+                <p>- The new staircase value is fed back to the first summing block. This closes the loop.<br>- On the next sampling instant, the new staircase is compared again with the new input sample.</p>
+                
+                <p>- The quantiser output which is the Delta Modulated Bitstream is then encoded and transmitted.</p>
+
+                <p>- This up-and-down stepping forms the characteristic staircase approximation of the original signal.</p>
+
+                <h3>Demodulator Working: </h3>
+                <p>- The function of the Demodulator's Accumulator is same as the Modulator's Accumulator</p>
+
+                <p>- The Delta Modulated Bitstream is fed into the accumulator. The accumulator adds a fixed step (Δ) depending on the bit </p>
+
+                <p>- This forms the Staircase approximation of the original signal</p>
+
+                <p>- This staircase approximation is fed into a Reconstruction Filter (typically a LPF) to reconstruct the original signal from the staircase approximation</p>
+
+                <p>- The LPF removes high frequency quantization noise and smooths step transition</p>
+        </div>
+    </main>
+    <script src="../assets/scripts/script2.js"></script>
+</body>
+</html>

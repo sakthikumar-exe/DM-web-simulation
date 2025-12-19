@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta Modulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+</head>
+<body>
+   <header class="header">
+        <div class="header-content" style="position: relative;">
+            <div class="title-section">
+                <h1 class="main-title">Delta Modulation</h1>
+                <!--<p class="subtitle">Virtual Lab Simulation</p> -->
+            </div>
+            <div style="
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0px 0px;">
+                <p style="
+                    margin: 0;
+                    font-size: 1rem;
+                    color: #ddd;
+                    text-align: right;
+                    line-height: 1.5;">
+                        Puducherry<br>Technological<br>University
+                </p>
+                <img src="../assets/images/logo.png"
+                    alt="Logo"
+                    style="width: 70px; height: auto;">
+            </div>
+        </div>
+    </header>
+
+    <nav class="navigation">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="../../index.html">AIM</a></li>
+            <li class="nav-item"><a href="theory.html">BLOCK DIAGRAM</a></li>
+            <li class="nav-item"><a href="practical.html">PRACTICAL CIRCUIT</a></li>
+            <li class="nav-item active"><a href="noise.html">THEORY-NOISES</a></li>
+            <li class="nav-item"><a href="steps.html">SIMULATION SEPS</a></li>
+            <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
+            <li class="nav-item"><a href="reference.html">REFERENCES</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="content-container">
+            <h2 class="content-title">Noises in Delta Modulation</h2>
+            <!--<h2 class="content-title">Noises</h2>-->
+            <div style="text-align: center";>
+            <img src="../assets/images/graph.png"
+       alt="Delta Modulation Practical Circuit Diagram" 
+       style="max-width: 50%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+  <p style="font-style: italic; color: #666; margin-top: 10px;">Figure 1: Errors in Staircase Approximation</p>
+            </div><div class="content-body">
+            <br><br>
+            
+
+            <div class="content-body">
+                <p>In Delta Modulation, because the system works with only one bit and a fixed step size, it cannot perfectly follow every kind of input waveform. As the input signal moves, the staircase that tries to follow it may sometimes move too aggressively or too slowly. These mismatches create two characteristic types of distortion: granular noise and slope overload distortion.</p>
+                <h3>Granular Noise or Quantizing Noise:</h3>
+                <p>Granular noise appears when the input signal is almost flat or changes very slowly, but the staircase continues to jump up or down by the same fixed amount every sample. Since the staircase is forced to move by the step size even when the input hardly changes, it ends up wobbling around the true value instead of settling smoothly. This jittering up-and-down movement creates a grainy or noisy appearance in the reconstructed signal. It is called as Granular noise since the output looks rough and coarse, especially when the input is gently varying.</p>
+                <h3>Slope overload distortion:</h3>
+                <p>Slope overload distortion occurs when the input signal changes too quickly. The staircase in DM can only move a fixed amount (Δ) per sample, so if the input makes a rapid rise or fall, the staircase simply cannot climb or descend fast enough to keep up. The result is that the staircase falls behind the true signal, and the gap between them grows over several samples. Instead of following the signal closely, the reconstructed waveform looks flattened or delayed during sharp transitions.</p>
+
+                <p>Both of these noises come from the limitation of using a single, fixed step size. If the step is too large, the staircase will overshoot and jitter during slow signal changes, producing granular noise. If the step is too small, the staircase won’t be able to chase fast-changing sections, resulting in slope overload. DM therefore has an inherent trade-off: choosing a step size that balances both types of error</p>
+
+            </div>
+        </div>
+    <script src="../assests/scripts/script2.js"></script>
+    </main>
+</body>
+</html>
