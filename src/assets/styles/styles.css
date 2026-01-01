@@ -30,16 +30,16 @@ body {
 
 .main-title {
     color: #ffffff;
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: 2.3rem;
+    font-weight: 500;
     margin-bottom: 8px;
 }
 
 .subtitle {
     color: #ffffff;
-    font-size: 1.1rem;
+    font-size: 0.01rem;
     font-weight: 300;
-    opacity: 0.95;
+    opacity: 0;
 }
 
 .logo-box {
@@ -63,8 +63,7 @@ body {
 }
 
 .navigation {
-    background-color: #282a2c;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color:#106ba3;
 }
 
 .nav-list {
@@ -91,7 +90,7 @@ body {
 }
 
 .nav-item:hover a {
-    background-color: #1b1c1e;
+    background-color: #0a3e60;
 }
 
 .nav-item.active a {
@@ -122,7 +121,7 @@ body {
 
 .content-body {
     font-size: 1.4rem;
-    color: #555555;
+    color: #282a2c;
     line-height: 1.8;
 }
 

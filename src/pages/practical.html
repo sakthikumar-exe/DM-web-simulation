@@ -54,8 +54,7 @@
     <header class="header">
         <div class="header-content" style="position: relative;">
             <div class="title-section">
-                <h1 class="main-title">Delta Modulation</h1>
-                <!--<p class="subtitle">Virtual Lab Simulation</p> -->
+                <h1 class="main-title">Delta Modulation - Virtual Lab</h1>
             </div>
             <div style="
                 position: absolute;
@@ -83,12 +82,13 @@
     <nav class="navigation">
         <ul class="nav-list">
             <li class="nav-item"><a href="../../index.html">AIM</a></li>
-            <li class="nav-item"><a href="theory.html">BLOCK DIAGRAM</a></li>
+            <li class="nav-item"><a href="theory.html">THEORY</a></li>
             <li class="nav-item active"><a href="practical.html">PRACTICAL CIRCUIT</a></li>
-            <li class="nav-item"><a href="noise.html">THEORY-NOISES</a></li> 
-            <li class="nav-item"><a href="steps.html">SIMULATION SEPS</a></li>
+            <li class="nav-item"><a href="procedure.html">PROCEDURE</a></li> 
+            <li class="nav-item"><a href="pretest.html">PRE-TEST</a></li>
             <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
-            <li class="nav-item"><a href="reference.html">REFERENCES</a></li>
+            <li class="nav-item"><a href="posttest.html">POST-TEST</a></li>
+            <li class="nav-item"><a href="reference.html">REFERENCE</a></li>
         </ul>
     </nav>
 
@@ -106,23 +106,11 @@
             </div>
             <br>
             <h3>Circuit Overview</h3>
-<!--<p>The circuit mainly consists of two functional sections:</p>
-<p><strong>1.Digital Sample</strong></p>
-<p><strong>2.lntegrator</strong></p>-->
-<!--<h3>1.Digital Sampler Section:</h3>-->
 <p>
 <h5>(a) Comparator:</h5>
 <p>The comparator compares the instantaneous amplitude of the input message
 with the integrator output and generates a High or low output depending on whether
 the input signal is greater or smaller than the integrator output.</p>
-<!--<p>Inputs:</p>
-<p>-Non inverting(+) terminal  Message signal</p>
-<p>-Inverting(-) terminal      Feedback signal from integrator output</p>
-<p>-If the input is greater than feedback, the comparator output is logic "1".</p>
-<p>-If the input is lesser than feedback, the comparator output is logic "0".</p>
-<p>Operation:</p>
-<p>-If Vin (message) is greater than Vfb (integrator output), Comparator output is HIGH </p>
-<p>-If Vin (message) is lesser than Vfb (integrator output), Comparator output is LOW</p>-->
 
 <h5>(b) Digital Sampler:</h5>
 <p>The IC 4O13 is a dual D-type flip flop. The flip flop simply holds or remembers its previous output state. <br> The Flip Flop changes its output value to its current input when a clock pulse is applied at CLK</p>
@@ -130,7 +118,7 @@ the input signal is greater or smaller than the integrator output.</p>
 The output of the Flip Flop is the Delta Modulated Bitstream</p>
 
 <h5>(c) Integrator: </h5>
-<p>The integrator receives the sampled digital output fromn the flip flop and produces an analog output
+<p>The integrator receives the sampled digital output from the flip flop and produces an analog output
 proportional to the sum of all previous inputs. A resistor and a capacitor determine the integration
 time constant (RC). The output voltage of the integrator at any time is given by:</p>
 
@@ -148,8 +136,7 @@ time constant (RC). The output voltage of the integrator at any time is given by
             </div>
         </div>
 
-<p>The integrator reconstructs the signal based on the RC time constant. The value is chosen in such a way that the integrator reconstructs the input signal with minimal slope overload distortion </p>
-
+<p>The integrator reconstructs the signal based on the RC time constant. The RC time constant determines the rate at which the integrator output changes in response to the digital input. A properly chosen RC value allows the integrator to accurately track the input signal while minimizing distortion. If the RC time constant is too large, the integrator responds slowly, leading to slope overload distortion for rapidly changing signals. Conversely, a very small RC value causes the integrator output to fluctuate excessively, resulting in granular noise. Hence, the RC time constant is selected as a compromise between tracking ability and noise performance in Delta Modulation systems. </p>
 <h5>(d) lnverting amplifier:</h5>
 <p>The inverting amplifier provide an inverted version of the integrator output. The resistor pair ensures unity gain inversion, The inverted signal is
 given as a feedback to the comparator.</p>
@@ -159,8 +146,8 @@ given as a feedback to the comparator.</p>
 <p>2. Comparator compares message with inverted feedback from the integrator.</p>
 <p>3. Comparator output is sampled by the flipflop to generate DM output</p>
 <p>4. DM Output drives Integrator:</p>
-<p>-If DM output is 1 --> Integrator output steps up.</p>
-<p>-If DM output is 0 --> Integrator output steps down.</p>
+<p>• If DM output is 1 --> Integrator output steps up.</p>
+<p>• If DM output is 0 --> Integrator output steps down.</p>
 <p>5. Integrator output is sent to Inverter which feeds back inverted signal to the Comparator.</p>
 <p>6. The process repeats continuously.</p> 
 </p>

@@ -9,7 +9,7 @@ function simulateDM() {
     if (autoSetEnabled) {
         delta =  (2 * Math.PI * fm1 * A) / Fd;
     } else {
-        const RC = parseFloat(document.getElementById('RC').value);
+        RC = parseFloat(document.getElementById('RC').value);
         const Ts = 1 / Fd;
         delta =  Ts / RC;
     }

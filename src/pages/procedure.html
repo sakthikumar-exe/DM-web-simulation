@@ -43,32 +43,48 @@
             <li class="nav-item"><a href="../../index.html">AIM</a></li>
             <li class="nav-item"><a href="theory.html">THEORY</a></li>
             <li class="nav-item"><a href="practical.html">PRACTICAL CIRCUIT</a></li>
-            <li class="nav-item"><a href="procedure.html">PROCEDURE</a></li> 
+            <li class="nav-item active"><a href="procedure.html">PROCEDURE</a></li> 
             <li class="nav-item"><a href="pretest.html">PRE-TEST</a></li>
             <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
             <li class="nav-item"><a href="posttest.html">POST-TEST</a></li>
-            <li class="nav-item active"><a href="reference.html">REFERENCE</a></li>
+            <li class="nav-item"><a href="reference.html">REFERENCE</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         <div class="content-container">
-            <h2 class="content-title">REFERENCE</h2>
+            <h2 class="content-title">Procedure</h2>
             <div class="content-body">
-                <h3>Books:</h3>
-                <p>Simon Haykin, Communication Systems, 4th ed., John Wiley & Sons, 2000</p><p>Bernard Sklar, Digital Communications: Fundamentals and Applications, 2nd ed., Prentice Hall, Upper Saddle River, NJ, 2001
-                </p><p>Modern Digital and Analog Communication Systems. 4th ed., Oxford University Press, 2009 - Lathi, B.P.; Ding, Zhi.</p><p>Leon W. Couch II, Digital & Analog Communication Systems, 8th ed., Prentice Hall / Pearson, 2012. </p>
-            </div>
-            <div class="content-body">
-                <h3>Images:</h3>
-                <div class="references">
-                    <p><strong>Modulator Block Diagram: </strong><br>Tutorials Point, “Delta modulator block diagram”, in Digital Communication – Delta Modulation.<br>          Available: <a href="https://www.tutorialspoint.com/digital_communication/digital_communication_delta_modulation.htm" target="_blank" rel="noopener noreferrer">www.tutorialspoint.com/digital_communication/digital_communication_delta_modulation.htm</a><br></p>
-                    <p><strong>Staircase Approximation and Demodulator Block Diagram: </strong><br> Electronics Post, “Delta modulation diagram”, in Explain Delta Modulation in Detail with Suitable Diagram, May 6, 2018.<br> Available: <a href="https://electronicspost.com/explain-delta-modulation-in-detail-with-suitable-diagram/" target="_blank" rel="noopener noreferrer">electronicspost.com/explain-delta-modulation-in-detail-with-suitable-diagram</a><br></p>
-                    <p><strong>Errors in Staircase Approximation: </strong><br> Ques10, “Delta modulation diagram”, in What is delta modulation?, (n.d).<br> Available: <a href="https://www.ques10.com/p/11509/what-is-delta-modulation-2/" target="_blank" rel="noopener noreferrer" >www.ques10.com/p/11509/what-is-delta-modulation-2/</a><br></p>
-                </div>
+                <p>1. Specify the amplitude and frequency of the message signal.</p>
+                <p>
+                2. Specify the frequency of the sampling pulse.
+                </p>
+                <p>
+                3. Specify the RC time constant value. (The value is used to determine the step size).<br>
+                The AutoSet switch automatically sets the RC time constant such that the integrator output follows the message signal with minimal noise.
+                </p>
+                <p>
+                4. No input parameters are required for the demodulator block.
+                </p>
+                <p>
+                5. Click "Simulate" to simulate and display all the plots.
+                </p>
+                <p>
+                6. Observe the plots and review key metrices.
+                </p>
+                <p>
+                7. Experiment with input and simulation parameters.
+                </p>
+
+                <h4>Note:</h4>
+                <p>
+                • The Staircase Approximation switch toggles the display of the staircase approximation plot over the message signal, allowing the study of the effect of step size on noise.
+                </p>
+                <p>
+                • The view of the plot can be modified using the tools available at the top-right corner of the plot.
+                </p>
             </div>
         </div>
-    <script src="../assets/scripts/script2.js"></script>
     </main>
 </body>
 </html>
