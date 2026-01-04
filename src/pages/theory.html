@@ -25,7 +25,7 @@
                 padding: 0px 0px;">
                 <p style="
                     margin: 0;
-                    font-size: 1rem;
+                    font-size: 0.94rem;
                     color: #ddd;
                     text-align: right;
                     line-height: 1.5;">
@@ -33,7 +33,7 @@
                 </p>
                 <img src="../assets/images/logo.png"
                     alt="Logo"
-                    style="width: 70px; height: auto;">
+                    style="width: 55px; height: auto;">
             </div>
         </div>
     </header>
@@ -54,30 +54,31 @@
 
     <main class="main-content">
         <h2 class="content-title">Block Diagram</h2>
+        <p><br></p>
         <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px;">
             <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
                 <img src="../assets/images/block.jpg"
                 alt="Delta Modulation Practical Circuit Diagram" 
-                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <p style="font-style: italic; color: #666; margin-top: 10px; text-align: center;">Figure 1: Modulator Block Diagram</p>
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #ffffff;">
+                <p style="font-style: italic; color: #00d9ff; margin-top: 10px; text-align: center;">Figure 1: Modulator Block Diagram</p>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
                 <img src="../assets/images/reciever.png"
                 alt="Delta Modulation Practical Circuit Diagram" 
-                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <p style="font-style: italic; color: #666; margin-top: 10px; text-align: center;">Figure 2: Demodulator Block Diagram</p>
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #ffffff;">
+                <p style="font-style: italic; color: #00d9ff; margin-top: 10px; text-align: center;">Figure 2: Demodulator Block Diagram</p>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
                 <img src="../assets/images/approx.png"
                 alt="Delta Modulation Staircase Approximation" 
-                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <p style="font-style: italic; color: #666; margin-top: 10px; text-align: center;">Figure 3: Staircase Approximation</p>
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #ffffff;">
+                <p style="font-style: italic; color: #00d9ff; margin-top: 10px; text-align: center;">Figure 3: Staircase Approximation</p>
             </div>
         </div>
         <div class="content-body">
             <br><br>
                 <p> Delta modulation is a digital signal encoding technique that converts analog signals into digital data by transmitting only one bit per sample, representing whether the input amplitude has increased or decreased from the previous step. The modulator employs a staircase approximation that tries to follow the shape of the input analog signal using discrete step increments and decrements, based on the comparison with the previous sample. This staircase signal is generated with a fixed step size, Δ, resulting in the output being confined to two levels (+Δ or -Δ) for each sampling instant.</p>
-                <h3>Modulator Working:</h3>
+                <h3 style="color: #00d9ff;">Modulator Working:</h3>
             
                 <p>● The incoming signal enters the first summing block, where it is compared with the system’s own internally generated staircase value.</p><p>● The summing block subtracts the staircase value from the input, producing an error signal. This error simply tells whether the input is higher or lower than the staircase.</p>
 
@@ -91,7 +92,7 @@
 
                 <p>● This up-and-down stepping forms the characteristic staircase approximation of the original signal.</p>
 
-                <h3>Demodulator Working: </h3>
+                <h3 style="color: #00d9ff;">Demodulator Working: </h3>
                 <p>● The function of the Demodulator's Accumulator is same as the Modulator's Accumulator</p>
 
                 <p>● The Delta Modulated Bitstream is fed into the accumulator. The accumulator adds a fixed step (Δ) depending on the bit </p>
@@ -103,21 +104,22 @@
                 <p>● The LPF removes high frequency quantization noise and smooths step transition</p>
                 <br>
         </div>
-         <div class="content-container">
-            <h2 class="content-title">Noises in Delta Modulation</h2>
+        <h2 class="content-title">Noises in Delta Modulation</h2>
+        <p><br></p>
+        <div class="content-container">
             <div style="text-align: center";>
                 <img src="../assets/images/graph.png"
                     alt="Delta Modulation Practical Circuit Diagram" 
-                    style="max-width: 50%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <p style="font-style: italic; color: #666; margin-top: 10px;">Figure 1: Errors in Staircase Approximation</p>
+                    style="max-width: 50%; height: auto; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #ffffff;">
+                    <p style="font-style: italic; color: #00d9ff; margin-top: 10px;">Figure 1: Errors in Staircase Approximation</p>
             </div>
             <div class="content-body">
             <br><br>
             <div class="content-body">
                 <p>In Delta Modulation, because the system works with only one bit and a fixed step size, it cannot perfectly follow every kind of input waveform. As the input signal moves, the staircase that tries to follow it may sometimes move too aggressively or too slowly. These mismatches create two characteristic types of distortion: granular noise and slope overload distortion.</p>
-                <h3>Granular Noise or Quantizing Noise:</h3>
+                <h3 style="color: #00d9ff;">Granular Noise or Quantizing Noise:</h3>
                 <p>Granular noise appears when the input signal is almost flat or changes very slowly, but the staircase continues to jump up or down by the same fixed amount every sample. Since the staircase is forced to move by the step size even when the input hardly changes, it ends up wobbling around the true value instead of settling smoothly. This jittering up-and-down movement creates a grainy or noisy appearance in the reconstructed signal. It is called as Granular noise since the output looks rough and coarse, especially when the input is gently varying.</p>
-                <h3>Slope overload distortion:</h3>
+                <h3 style="color: #00d9ff;">Slope overload distortion:</h3>
                 <p>Slope overload distortion occurs when the input signal changes too quickly. The staircase in DM can only move a fixed amount (Δ) per sample, so if the input makes a rapid rise or fall, the staircase simply cannot climb or descend fast enough to keep up. The result is that the staircase falls behind the true signal, and the gap between them grows over several samples. Instead of following the signal closely, the reconstructed waveform looks flattened or delayed during sharp transitions.</p>
 
                 <p>Both of these noises come from the limitation of using a single, fixed step size. If the step is too large, the staircase will overshoot and jitter during slow signal changes, producing granular noise. If the step is too small, the staircase won’t be able to chase fast-changing sections, resulting in slope overload. DM therefore has an inherent trade-off: choosing a step size that balances both types of error</p>

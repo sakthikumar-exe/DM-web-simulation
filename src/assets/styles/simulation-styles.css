@@ -1,7 +1,7 @@
 .simulation-main {
     padding: 0;
     margin: 0;
-    background-color: #ffffff;
+    background-color: #0d1829;
     min-height: calc(100vh - 200px);
     min-width: 1200px;
     overflow-x: auto;
@@ -11,7 +11,7 @@
     display: flex;
     min-height: calc(100vh - 200px);
     position: relative;
-    background-color: #ffffff;
+    background-color: #0d1829;
     min-width: 1200px;
     width: 100%;
 }
@@ -21,6 +21,7 @@
     min-width: 480px;
     padding: 20px 20px;
     overflow-y: auto;
+    background-color: #0d1829;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -34,8 +35,8 @@
     flex: 0 0 60%;
     min-width: 720px;
     padding: 30px 20px;
-    background-color: #ffffff;
-    border-left: 1px solid #e0e0e0;
+    background-color: #0d1829;;
+    border-left: 1px solid #00d9ff;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -63,10 +64,10 @@
 }
 
 .input-block {
-    border: 1px solid #282a2c;
+    border: 1px solid #00d9ff;
     border-radius: 10px;
     padding: 12px;
-    background-color: #fafafa;
+    background-color: #1017459b;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     flex: 1 1 0;
     min-width: 140px;
@@ -78,7 +79,7 @@
 .block-title {
     font-size: 0.8rem;
     font-weight: 600;
-    color: #282a2c;
+    color: #00d9ff;
     margin-bottom: 8px;
     margin-top: 0;
     text-align: center;
@@ -105,8 +106,9 @@
 .input-row input {
     width: 100%;
     padding: 5px 6px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid #00d9ff;
     border-radius: 6px;
+    background-color: #1017459b;
     font-family: 'Poppins', sans-serif;
     font-size: 0.7rem;
     transition: border-color 0.3s ease;
@@ -115,14 +117,14 @@
 
 .input-row input:focus {
     outline: none;
-    border-color: #282a2c;
+    border-color: #00d9ff;
     box-shadow: 0 0 4px rgba(40, 42, 44, 0.1);
     flex-shrink: 0;
 }
 
 .input-row input:disabled {
-    background-color: #eeeeee;
-    color: #999999;
+    background-color: #0d1829;
+    color: #00d9ff;
     cursor: not-allowed;
     flex-shrink: 0;
 }
@@ -151,8 +153,8 @@
     position: relative;
     width: 36px;               
     height: 20px;
-    background-color: #fff;
-    border: 2px solid #282a2c;
+    background-color: #1017459b;
+    border: 2px solid #00d9ff;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -164,8 +166,8 @@
 }
 
 .toggle-switch.active {
-    background-color: #282a2c;
-    border-color: #282a2c;
+    background-color: #00d9ff;
+    border-color: #00d9ff;
     flex-shrink: 0;
 }
 
@@ -173,7 +175,7 @@
     width: 14px;
     height: 14px;
     background-color: #fff;
-    border: 0.5px solid #282a2c;
+    border: 0.5px solid #00d9ff;
     border-radius: 50%;
     transition: transform 0.3s ease;
     pointer-events: none;      
@@ -184,8 +186,8 @@
 
 .toggle-switch.active .toggle-slider {
     left: 24px;
-    background-color: #ffffff;
-    border-color: #ffffff;
+    background-color: #1017459b;
+    border-color: #1017459b;
     transform: translateX(16px);
     flex-shrink: 0;
 }
@@ -218,10 +220,10 @@
 }
 
 .info-block {
-    border: 1px solid #282a2c;
+    border: 1px solid #00d9ff;
     border-radius: 8px;
     padding: 12px 16px;
-    background-color: #fafafa;
+    background-color: #1017459b;
     min-width: 120px;
     width: 120px;
     text-align: center;
@@ -231,7 +233,7 @@
 
 .block-label {
     font-size: 0.85rem;
-    color: #555555;
+    color: #00d9ff;
     font-weight: 500;
     display: block;
     line-height: 1.3;
@@ -258,22 +260,21 @@
 
 .simulate-btn {
     padding: 10px 25px;
-    background-color: #282a2c;
-    color: #ffffff;
-    border: none;
+    background-color: #1017459b;
+    color: #00d9ff;
+    border-color: #00d9ff;
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     align-self: center;
     margin-top: 15px;
     flex-shrink: 0;
 }
 
 .simulate-btn:hover {
-    background-color: #1a1b1d;
+    background-color: #0d1829;
     box-shadow: 0 4px 12px rgba(40, 42, 44, 0.2);
     flex-shrink: 0;
 }
@@ -298,7 +299,7 @@
 .graph-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #282a2c;
+    color: #00d9ff;
     margin-bottom: 0;
     margin-top: 0;
     text-decoration: underline;
@@ -312,7 +313,7 @@
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #00d9ff;
     min-height: 500px;
     height: 1400px;
     flex-shrink: 0;
@@ -400,4 +401,10 @@
     .simulate-btn {
         width: auto;
     }
+}
+
+.input-row input[type="number"]::-webkit-inner-spin-button,
+.input-row input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
