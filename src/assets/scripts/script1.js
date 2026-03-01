@@ -283,11 +283,103 @@ document.getElementById('stepApprox').addEventListener('click', function() {
     setTimeout(() => simulateDM(), 0);
 });
 
+/* ── RC Slider Logic ────────────────────────────────── */
+var syncRC; 
+(function () {
+    function getRCSlider()  { return document.getElementById('RC'); }
+    function getRCDisplay() { return document.getElementById('RC-display'); }
+    function getAutoSet()   { return document.getElementById('autoSet'); }
 
-document.addEventListener('DOMContentLoaded', function() {
-      simulateDM();
-})
- 
+    // Update the gradient fill on the track
+    function updateFill(slider) {
+        const min = parseFloat(slider.min);
+        const max = parseFloat(slider.max);
+        const pct = ((parseFloat(slider.value) - min) / (max - min)) * 100;
+        slider.style.setProperty('--rc-pct', pct.toFixed(2) + '%');
+    }
+
+    // Update the digital display
+    function updateDisplay(value) {
+        const display = getRCDisplay();
+        if (display) display.textContent = parseFloat(value).toFixed(6);
+    }
+
+    // Apply or remove disabled state on slider
+    function setSliderDisabled(slider, disabled) {
+        if (disabled) {
+            slider.classList.add('rc-disabled');
+            slider.disabled = true;
+        } else {
+            slider.classList.remove('rc-disabled');
+            slider.disabled = false;
+        }
+    }
+
+    // Compute the RC-equivalent when AutoSet is ON
+    function getAutoSetRC() {
+        const Fd  = parseFloat(document.getElementById('Fd').value);
+        const fm1 = parseFloat(document.getElementById('fm1').value);
+        const A   = parseFloat(document.getElementById('A').value);
+        const delta = (2 * Math.PI * fm1 * A) / Fd;
+        const RC_equiv = 1 / (Fd * delta);
+        // Clamp within slider range
+        const slider = getRCSlider();
+        const min = parseFloat(slider.min);
+        const max = parseFloat(slider.max);
+        return Math.min(Math.max(RC_equiv, min), max);
+    }
+
+    // Main sync function — call whenever state might have changed
+    syncRC = function syncRC() {
+        const slider   = getRCSlider();
+        const autoSet  = getAutoSet();
+        if (!slider || !autoSet) return;
+
+        const isAuto = autoSet.classList.contains('active');
+        setSliderDisabled(slider, isAuto);
+
+        if (isAuto) {
+            const rcEquiv = getAutoSetRC();
+            slider.value = rcEquiv;
+            updateDisplay(rcEquiv);
+        } else {
+            updateDisplay(slider.value);
+        }
+
+        updateFill(slider);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const slider  = getRCSlider();
+        const autoSet = getAutoSet();
+
+        // Live update while dragging
+        if (slider) {
+            slider.addEventListener('input', function () {
+                updateFill(slider);
+                updateDisplay(slider.value);
+            });
+        }
+
+        // Sync when AutoSet is toggled
+        if (autoSet) {
+            autoSet.addEventListener('click', function () {
+                // Let the toggle class update first, then sync
+                setTimeout(syncRC, 0);
+            });
+        }
+
+        // Re-sync RC when knob hidden inputs change (covers live drag while AutoSet ON)
+        ['A', 'fm1', 'Fd'].forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', syncRC);
+        });
+
+        // Initial state
+        syncRC();
+        simulateDM();
+    });
+})();
 
 function numericRange(start, end, step) {
     let arr = [], cur = start;
@@ -346,3 +438,339 @@ function butterworthLPF(input, Fd, fc) {
     }
     return y;
 }
+
+/* ── Rotary Knob Module ───────────────────────────── */
+(function () {
+
+    const MIN_ANGLE = -135;
+    const MAX_ANGLE =  135;
+
+    const knobConfigs = {
+        A: {
+            minVal: 1, maxVal: 10,
+            step: 1,
+            defaultVal: 1,
+            inputId: 'A',
+            displayId: 'display-A',
+            ringId: 'knob-A-ring',
+            bodyId: 'knob-A',
+        },
+        fm1: {
+            
+            minVal: 1, maxVal: 1000,
+            step: 1,
+            defaultVal: 10,
+            inputId: 'fm1',
+            displayId: 'display-fm1',
+            ringId: 'knob-fm1-ring',
+            bodyId: 'knob-fm1',
+        },
+        Fd: {
+            minVal: 1,
+            maxVal: 1000,
+            step: 1,
+            defaultVal: 300,
+            inputId: 'Fd',
+            displayId: 'display-Fd',
+            ringId: 'knob-Fd-ring',
+            bodyId: 'knob-Fd',
+        }
+    };
+
+    const state = {
+        A:   { angle: 0, value: 1 },
+
+        fm1: { angle: 0, value: 10 },  
+        freqUnit: 'hz',
+
+        Fd:  { angle: 0, value: 300 },  
+        FdUnit: 'hz'
+    };
+
+    /* ── Unit-aware effective range for fm1 ── */
+    function getFreqEffective() {
+        if (state.freqUnit === 'khz') {
+            return { minVal: 1, maxVal: 100, step: 1 };   // display units (KHz)
+        }
+        return { minVal: 1, maxVal: 1000, step: 1 };       // display units (Hz)
+    }
+
+    function getFdEffective() {
+        if (state.FdUnit === 'khz') {
+            return { minVal: 1, maxVal: 100, step: 1 };
+        }
+        return { minVal: 1, maxVal: 1000, step: 1 };
+    }
+
+    function commitFdValue(displayVal) {
+        const eff = getFdEffective();
+        const snapped = clamp(snapToStep(displayVal, eff.step), eff.minVal, eff.maxVal);
+
+        const hz = state.FdUnit === 'khz' ? snapped * 1000 : snapped;
+
+        state.Fd.value = hz;
+        document.getElementById('Fd').value = hz;
+        document.getElementById('display-Fd').textContent =
+            state.FdUnit === 'khz'
+                ? `${Math.round(hz/1000)} KHz`
+                : `${hz} Hz`;
+
+        const angle = valueToAngle(snapped, eff.minVal, eff.maxVal);
+        state.Fd.angle = angle;
+        document.getElementById(knobConfigs.Fd.bodyId)
+            .style.transform = `rotate(${angle}deg)`;
+    }
+    
+    function clamp(val, lo, hi) {
+        return Math.max(lo, Math.min(hi, val));
+    }
+
+    function angleToValue(angle, minVal, maxVal) {
+        const t = (angle - MIN_ANGLE) / (MAX_ANGLE - MIN_ANGLE);
+        return minVal + t * (maxVal - minVal);
+    }
+
+    function valueToAngle(value, minVal, maxVal) {
+        const t = (value - minVal) / (maxVal - minVal);
+        return MIN_ANGLE + t * (MAX_ANGLE - MIN_ANGLE);
+    }
+
+    function snapToStep(value, step) {
+        return Math.round(value / step) * step;
+    }
+
+    function normalizeAngle(deg) {
+        let a = deg % 360;
+        if (a > 180)  a -= 360;
+        if (a <= -180) a += 360;
+        return a;
+    }
+
+    /* ── Display formatter ── */
+    function formatFreqDisplay(hz) {
+        if (state.freqUnit === 'khz') {
+            return `${Math.round(hz / 1000)} KHz`;
+        }
+        return `${hz} Hz`;
+    }
+
+    /* ── Write snapped display-unit value → hidden input + display + body angle ── */
+    function commitFreqValue(displayVal) {
+        const eff = getFreqEffective();
+        const snapped = clamp(snapToStep(displayVal, eff.step), eff.minVal, eff.maxVal);
+
+        // Convert display value → Hz for hidden input
+        const hz = state.freqUnit === 'khz' ? snapped * 1000 : snapped;
+        state.fm1.value = hz;
+        document.getElementById('fm1').value = hz;
+        document.getElementById('display-fm1').textContent = formatFreqDisplay(hz);
+
+        const angle = valueToAngle(snapped, eff.minVal, eff.maxVal);
+        state.fm1.angle = angle;
+        document.getElementById(knobConfigs.fm1.bodyId).style.transform = `rotate(${angle}deg)`;
+    }
+
+    function commitAmpValue(rawVal) {
+        const cfg = knobConfigs.A;
+        const snapped = clamp(snapToStep(rawVal, cfg.step), cfg.minVal, cfg.maxVal);
+        state.A.value = snapped;
+        document.getElementById(cfg.inputId).value = snapped;
+        document.getElementById(cfg.displayId).textContent = `${snapped} V`;
+
+        const angle = valueToAngle(snapped, cfg.minVal, cfg.maxVal);
+        state.A.angle = angle;
+        document.getElementById(cfg.bodyId).style.transform = `rotate(${angle}deg)`;
+    }
+
+    /* ── True rotational drag ── */
+    function attachKnob(key) {
+        const ring = document.getElementById(knobConfigs[key].ringId);
+        if (!ring) return;
+
+        let prevMouseAngle = null;
+        let accAngle = state[key].angle;
+
+        function getMouseAngleDeg(e) {
+            const rect = ring.getBoundingClientRect();
+            const cx = rect.left + rect.width  / 2;
+            const cy = rect.top  + rect.height / 2;
+            return Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+        }
+
+        function onMouseDown(e) {
+            accAngle = state[key].angle;
+            prevMouseAngle = getMouseAngleDeg(e);
+            e.preventDefault();
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup',   onMouseUp);
+        }
+
+        function onMouseMove(e) {
+            if (prevMouseAngle === null) return;
+
+            const curr = getMouseAngleDeg(e);
+            let delta = normalizeAngle(curr - prevMouseAngle);
+            prevMouseAngle = curr;
+
+            accAngle = clamp(accAngle + delta, MIN_ANGLE, MAX_ANGLE);
+
+            if (key === 'A') {
+                const cfg = knobConfigs.A;
+                const raw = angleToValue(accAngle, cfg.minVal, cfg.maxVal);
+                commitAmpValue(raw);
+
+            } else if (key === 'fm1') {
+                const eff = getFreqEffective();
+                const raw = angleToValue(accAngle, eff.minVal, eff.maxVal);
+                commitFreqValue(raw);
+
+            } else if (key === 'Fd') {
+                const eff = getFdEffective();
+                const raw = angleToValue(accAngle, eff.minVal, eff.maxVal);
+                commitFdValue(raw);
+            }
+        }
+
+        function onMouseUp() {
+            prevMouseAngle = null;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup',   onMouseUp);
+            if (typeof syncRC === 'function') syncRC();
+        }
+        
+
+        ring.addEventListener('mousedown', onMouseDown);
+    }
+
+    /* ── Unit switch ── */
+   window.setFreqUnit = function (unit) {
+    if (state.freqUnit === unit) return;
+
+    const oldEff = getFreqEffective();
+    const oldAngle = state.fm1.angle;
+
+    state.freqUnit = unit;
+
+    document.getElementById('unit-hz')
+        .classList.toggle('active', unit === 'hz');
+    document.getElementById('unit-khz')
+        .classList.toggle('active', unit === 'khz');
+
+    const newEff = getFreqEffective();
+
+    // Convert angle directly into new range
+    const newDisplayVal = angleToValue(
+        oldAngle,
+        newEff.minVal,
+        newEff.maxVal
+    );
+
+   
+
+    // Snap + clamp
+    const snapped = clamp(
+        snapToStep(newDisplayVal, newEff.step),
+        newEff.minVal,
+        newEff.maxVal
+    );
+
+    // Convert to Hz internally
+    const hz = unit === 'khz'
+        ? snapped * 1000
+        : snapped;
+
+    state.fm1.value = hz;
+    document.getElementById('fm1').value = hz;
+    document.getElementById('display-fm1')
+        .textContent = formatFreqDisplay(hz);
+
+    state.fm1.angle = oldAngle;
+    document.getElementById(knobConfigs.fm1.bodyId)
+        .style.transform = `rotate(${oldAngle}deg)`;
+    };
+
+     window.setFdUnit = function(unit) {
+        if (state.FdUnit === unit) return;
+
+        const oldAngle = state.Fd.angle;
+        state.FdUnit = unit;
+
+        document.getElementById('unit-Fd-hz')
+            .classList.toggle('active', unit === 'hz');
+        document.getElementById('unit-Fd-khz')
+            .classList.toggle('active', unit === 'khz');
+
+        const eff = getFdEffective();
+        const newDisplayVal = angleToValue(oldAngle, eff.minVal, eff.maxVal);
+
+        commitFdValue(newDisplayVal);
+    };
+    /* ── Init ── */
+    function init() {
+        // Amplitude
+       const aCfg = knobConfigs.A;
+        state.A.value = aCfg.defaultVal;
+        document.getElementById(aCfg.inputId).value = aCfg.defaultVal;
+        const aAngle = valueToAngle(
+            aCfg.defaultVal,
+            aCfg.minVal,
+            aCfg.maxVal
+        );
+
+        state.A.angle = aAngle;
+        document.getElementById(aCfg.bodyId)
+            .style.transform = `rotate(${aAngle}deg)`;
+
+        document.getElementById(aCfg.displayId)
+            .textContent = `${aCfg.defaultVal} V`;
+
+        // Frequency (Hz mode on init)
+        state.freqUnit = 'hz';
+        const fDefault = knobConfigs.fm1.defaultVal;
+        state.fm1.value = fDefault;
+        document.getElementById('fm1').value = fDefault;
+
+        const fAngle = valueToAngle(
+            fDefault,
+            0,
+            1000
+        );
+
+        state.fm1.angle = fAngle;
+        document.getElementById(knobConfigs.fm1.bodyId)
+            .style.transform = `rotate(${fAngle}deg)`;
+
+        document.getElementById(knobConfigs.fm1.displayId)
+            .textContent = `${fDefault} Hz`;
+        const fdCfg = knobConfigs.Fd;
+
+        state.FdUnit = 'hz';
+
+        state.Fd.value = fdCfg.defaultVal;
+        document.getElementById(fdCfg.inputId).value = fdCfg.defaultVal;
+
+        const fdAngle = valueToAngle(
+            fdCfg.defaultVal,
+            0,
+            1000
+        );
+
+        state.Fd.angle = fdAngle;
+
+        document.getElementById(fdCfg.bodyId)
+            .style.transform = `rotate(${fdAngle}deg)`;
+
+        document.getElementById(fdCfg.displayId)
+            .textContent = `${fdCfg.defaultVal} Hz`;
+        attachKnob('A');
+        attachKnob('fm1');
+        attachKnob('Fd');
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();

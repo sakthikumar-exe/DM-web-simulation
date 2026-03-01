@@ -61,39 +61,91 @@
                 <!-- Interactive Input Blocks (Top Row of Modulator) -->
                 <div class="interactive-blocks-grid">
                     <!-- Message Signal Block -->
-                    <div class="input-block">
-                        <h3 class="block-title">Message Signal</h3>
-                        <div class="input-row">
-                            <label for="A"style="color:#00d9ff">Amplitude (V)</label>
-                            <input type="number" id="A" value="1" style="color:#00d9ff">
-                        </div>
-                        <div class="input-row">
-                            <label for="fm1"style="color:#00d9ff">Frequency (Hz)</label>
-                            <input type="number" id="fm1" value="10" style="color:#00d9ff">
-                        </div>
-                        <svg width="160" height="190" style="display: block;">
-                        <line x1="57.25" y1="12.5" x2="57.25" y2="34.5" stroke="#00d9ff" stroke-width="2"/>
+                        <div class="input-block knob-input-block">
+                            <h3 class="block-title">Message Signal</h3>
+
+                            <!-- Hidden inputs (preserved for simulateDM) -->
+                            <input type="number" id="A"   value="1"  style="display:none">
+                            <input type="number" id="fm1" value="10" style="display:none">
+
+                            <!-- Amplitude Row -->
+                            <div class="knob-param-row">
+                                <div class="knob-col">
+                                    <div class="knob-ring" id="knob-A-ring">
+                                        <div class="knob-body" id="knob-A">
+                                            <div class="knob-indicator"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="knob-display-stack">
+                                    <span class="knob-param-label">Amplitude</span>
+                                    <div class="knob-display" id="display-A">1 V</div>
+                                </div>
+                            </div>
+
+                            <!-- Frequency Row -->
+                            <div class="knob-param-row">
+                                <div class="knob-col">
+                                    <div class="knob-ring" id="knob-fm1-ring">
+                                        <div class="knob-body" id="knob-fm1">
+                                            <div class="knob-indicator"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="knob-display-stack">
+                                    <span class="knob-param-label">Frequency</span>
+                                    <div class="knob-display" id="display-fm1">10 Hz</div>
+                                    <!-- Unit Toggle directly below frequency display -->
+                                    <div class="knob-unit-row">
+                                        <button class="unit-btn active" id="unit-hz"  onclick="setFreqUnit('hz')">Hz</button>
+                                        <button class="unit-btn"        id="unit-khz" onclick="setFreqUnit('khz')">KHz</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <svg width="160" height="20" style="display:block; margin-top:auto;">
+                                <line x1="70" y1="0" x2="70" y2="0" stroke="#00d9ff" stroke-width="2"/>
                         </svg>
-                    </div>
+
+                        </div>
+                        
 
                     <!-- Sampling Signal Block -->
-                    <div class="input-block">
-                        <h3 class="block-title">Sampling Signal</h3>
-                        <div class="input-row">
-                            <label for="Fd"style="color:#00d9ff">Frequency (Hz)</label>
-                            <input type="number" id="Fd" value="300"style="color:#00d9ff">
-                        </div>
-                         <svg width="160" height="190" style="display: block;">
-                        <line x1="56" y1="67.5" x2="56" y2="89.5" stroke="#00d9ff" stroke-width="2"/>
-                        </svg>
-                    </div>
+                    <div class="input-block knob-input-block">
+                    <h3 class="block-title">Sampling Signal</h3>
+                    <input type="number" id="Fd" value="300" style="display:none">
 
+                    <div class="knob-param-row">
+                        <div class="knob-col">
+                            <div class="knob-ring" id="knob-Fd-ring">
+                                <div class="knob-body" id="knob-Fd">
+                                    <div class="knob-indicator"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="knob-display-stack">
+                            <span class="knob-param-label">Frequency</span>
+                            <div class="knob-display" id="display-Fd">300 Hz</div>
+
+                            <div class="knob-unit-row">
+                                <button class="unit-btn active" id="unit-Fd-hz" onclick="setFdUnit('hz')">Hz</button>
+                                <button class="unit-btn" id="unit-Fd-khz" onclick="setFdUnit('khz')">KHz</button>
+                            </div>
+                        </div>
+                    </div>
+                    <svg width="160" height="100" style="display:block; margin-top:auto;">
+                        <line x1="70" y1="0" x2="70" y2="0" stroke="#00d9ff" stroke-width="2"/>
+                    </svg>
+                   
+                </div> 
+                
                     <!-- RC Time Constant Block -->
-                    <div class="input-block">
+                    <div class="input-block knob-input-block">
                         <h3 class="block-title">RC Time Constant</h3>
-                        <div class="input-row">
-                            <label for="RC"style="color:#00d9ff">Value</label>
-                            <input type="number" id="RC" value="0.02"style="color:#00d9ff">
+                         <div class="rc-display-wrap">
+                            <div class="knob-display" id="RC-display">0.0010</div>
+                        </div>
+                        <div class="rc-slider-wrap">
+                            <input type="range" id="RC" min="0.00001" max="0.01" step="0.000001" value="0.01" class="rc-slider">
                         </div>
                         <div class="toggle-row">
                             <label for="autoSet"style="color:#00d9ff">AutoSet</label>
@@ -101,16 +153,17 @@
                                 <div class="toggle-slider"></div>
                             </div>
                         </div>
-                        <svg width="160" height="190" style="display: block;">
-                        <line x1="54" y1="48" x2="54" y2="70" stroke="#00d9ff" stroke-width="2"/>
-                        </svg>
+                        <svg width="160" height="98.4" style="display:block; margin-top:auto;">
+                            <line x1="70" y1="0" x2="70" y2="0" stroke="#00d9ff" stroke-width="2"/>
+                    </svg>
+                        
                     </div>
                
                 </div>
 
                 <!-- Functional Block Diagram (Modulator) -->
                 <div class="diagram-wrapper">
-                    <svg width="500" height="190" style="display: block;">
+                    <svg width="500" height="240" style="display: block;">
                         <!--Vertical arrows from input blocks to processing blocks -->
                         <!-- Arrow from Message Signal to Comparator -->
                         <line x1="70" y1="0" x2="70" y2="55" stroke="#00d9ff" stroke-width="2"/>
