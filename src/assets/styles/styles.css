@@ -188,3 +188,17 @@ body {
 .references a:hover {
   color: #00d9ff;
 }
+
+.main-title,
+.content-title,
+.nav-item.active a,
+.references a,
+.references a:visited {
+    text-shadow:
+        0 0 4px rgba(0, 217, 255, 0.55),
+        0 0 8px rgba(0, 217, 255, 0.25);
+}
+
+svg text[fill="#00d9ff"] {
+    filter: drop-shadow(0 0 4px rgba(0, 217, 255, 0.55));
+}

@@ -490,7 +490,7 @@ function butterworthLPF(input, Fd, fc) {
     /* ── Unit-aware effective range for fm1 ── */
     function getFreqEffective() {
         if (state.freqUnit === 'khz') {
-            return { minVal: 1, maxVal: 100, step: 1 };   // display units (KHz)
+            return { minVal: 1, maxVal: 10, step: 1 };   // display units (KHz)
         }
         return { minVal: 1, maxVal: 1000, step: 1 };       // display units (Hz)
     }
@@ -773,4 +773,119 @@ function butterworthLPF(input, Fd, fc) {
         init();
     }
 
+    window._commitAmpValue  = commitAmpValue;
+    window._commitFreqValue = commitFreqValue;
+    window._commitFdValue   = commitFdValue;
+    window._knobState       = state;
+
 })();
+
+function _setKnobByValue(inputId, displayId, bodyId, value, unit) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.value = value;
+
+    const display = document.getElementById(displayId);
+    if (display) {
+        if (inputId === 'A') {
+            display.textContent = value + ' V';
+        } else {
+            display.textContent = value + ' ' + (unit || 'Hz');
+        }
+    }
+
+    const configs = {
+        A:   { minVal: 1,   maxVal: 10,   bodyId: 'knob-A'   },
+        fm1: { minVal: 1,   maxVal: 1000, bodyId: 'knob-fm1' },
+        Fd:  { minVal: 1,   maxVal: 1000, bodyId: 'knob-Fd'  }
+    };
+    const cfg = configs[inputId];
+    if (cfg) {
+        const MIN_ANGLE = -135, MAX_ANGLE = 135;
+        const t = (value - cfg.minVal) / (cfg.maxVal - cfg.minVal);
+        const angle = MIN_ANGLE + t * (MAX_ANGLE - MIN_ANGLE);
+        const body = document.getElementById(cfg.bodyId);
+        if (body) body.style.transform = `rotate(${angle}deg)`;
+        if (window._knobState && window._knobState[inputId]) {
+            window._knobState[inputId].angle = angle;
+            window._knobState[inputId].value = value;
+        }
+    }
+
+    input.dispatchEvent(new Event('input'));
+}
+
+function _setAutoSet(enable) {
+    const toggle = document.getElementById('autoSet');
+    if (!toggle) return;
+    const isActive = toggle.classList.contains('active');
+    if (enable && !isActive) {
+        toggle.classList.add('active');
+        toggle.querySelector('.toggle-slider').style.transform = 'translateX(16px)';
+    } else if (!enable && isActive) {
+        toggle.classList.remove('active');
+        toggle.querySelector('.toggle-slider').style.transform = 'translateX(0)';
+    }
+}
+
+function _setRCSlider(value) {
+    const slider = document.getElementById('RC');
+    if (!slider) return;
+    slider.value = value;
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
+    const pct = ((value - min) / (max - min)) * 100;
+    slider.style.setProperty('--rc-pct', pct.toFixed(2) + '%');
+    const display = document.getElementById('RC-display');
+    if (display) display.textContent = parseFloat(value).toFixed(6);
+}
+
+function applyPreset(type) {
+    closeHelpOverlay();
+
+    if (type === 'slope') {
+        _setAutoSet(false);
+        _setKnobByValue('A',   'display-A',   'knob-A',   5,   'V');
+        _setKnobByValue('fm1', 'display-fm1', 'knob-fm1', 30, 'Hz');
+        _setKnobByValue('Fd',  'display-Fd',  'knob-Fd',  1000,  'Hz');
+        _setRCSlider(0.0021);
+
+    } else if (type === 'granular') {
+        _setAutoSet(false);
+        _setKnobByValue('A',   'display-A',   'knob-A',   5,    'V');
+        _setKnobByValue('fm1', 'display-fm1', 'knob-fm1', 30,   'Hz');
+        _setKnobByValue('Fd',  'display-Fd',  'knob-Fd',  1000, 'Hz');
+        _setRCSlider(0.00029);
+
+    } else if (type === 'minimal') {
+        _setAutoSet(false);
+        _setKnobByValue('A',   'display-A',   'knob-A',   5,    'V');
+        _setKnobByValue('fm1', 'display-fm1', 'knob-fm1', 30,   'Hz');
+        _setKnobByValue('Fd',  'display-Fd',  'knob-Fd',  1000, 'Hz');
+        _setRCSlider(0.0011);
+    }
+
+    syncRC();
+    simulateDM();
+}
+
+function toggleHelpOverlay(e) {
+    e.stopPropagation();
+    const overlay = document.getElementById('helpOverlay');
+    overlay.classList.toggle('active');
+}
+
+function closeHelpOverlay() {
+    const overlay = document.getElementById('helpOverlay');
+    if (overlay) overlay.classList.remove('active');
+}
+
+document.addEventListener('click', function(e) {
+    const overlay = document.getElementById('helpOverlay');
+    const btn = document.getElementById('helpBtn');
+    if (overlay && overlay.classList.contains('active')) {
+        if (!overlay.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+            closeHelpOverlay();
+        }
+    }
+});

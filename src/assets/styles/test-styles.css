@@ -1,6 +1,6 @@
 
 .mcq-card {
-    background: #1017459b;
+    background: #17191f;
     border: 1.5px solid #00d9ff;
     border-radius: 12px;
     padding: 20px;
@@ -9,7 +9,7 @@
 
 .mcq-question {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     margin-bottom: 16px;
 }
@@ -64,4 +64,11 @@
     margin-top: 10px;
     font-size: 0.9rem;
     font-weight: 500;
+}
+
+.mcq-card,
+.mcq-option {
+    text-shadow:
+        0 0 4px rgba(0, 217, 255, 0.45),
+        0 0 8px rgba(0, 217, 255, 0.2);
 }

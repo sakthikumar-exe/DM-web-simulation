@@ -47,7 +47,7 @@
             <li class="nav-item"><a href="pretest.html">PRE-TEST</a></li>
             <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
             <li class="nav-item"><a href="posttest.html">POST-TEST</a></li>
-            <li class="nav-item"><a href="reference.html">REFERENCE</a></li>
+            <!--<li class="nav-item"><a href="reference.html">REFERENCE</a></li>-->
         </ul>
     </nav>
 
@@ -56,35 +56,96 @@
             <h2 class="content-title">Procedure</h2>
             <div class="content-body">
                 <p>1. Specify the amplitude and frequency of the message signal.</p>
+                <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/gifs/message.gif"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #17191f;">
+            </div>
                 <p>
-                2. Specify the frequency of the sampling pulse.
+                <br>2. Specify the frequency of the sampling pulse.
                 </p>
-                <p>
-                3. Specify the RC time constant value. (The value is used to determine the step size).<br>
+                <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/gifs/sampling.gif"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #17191f;">
+                </div><p>
+                <br>3. Specify the RC time constant value. (The value is used to determine the step size).<br>
                 The AutoSet switch automatically sets the RC time constant such that the integrator output follows the message signal with minimal noise.
                 </p>
-                <p>
-                4. No input parameters are required for the demodulator block.
+                <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/gifs/rc.gif"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #17191f;">
+                </div><p>
+                <br>4. No input parameters are required for the demodulator block.
                 </p>
                 <p>
                 5. Click "Simulate" to simulate and display all the plots.
                 </p>
-                <p>
-                6. Observe the plots and review key metrices.
+                <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/gifs/simulate.gif"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #17191f;">
+                </div><p>
+                <br>6. Observe the plots and review key metrices.
                 </p>
                 <p>
-                7. Experiment with input and simulation parameters.
+                7. Experiment with your own input and simulation parameters.
                 </p>
 
                 <h4 style="color: #00d9ff;">Note:</h4>
                 <p>
                 • The Staircase Approximation switch toggles the display of the staircase approximation plot over the message signal, allowing the study of the effect of step size on noise.
                 </p>
-                <p>
-                • The view of the plot can be modified using the tools available at the top-right corner of the plot.
+                <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/gifs/approx.gif"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #17191f;">
+                </div><p>
+                <br>• The view of the plot can be modified using the tools available at the top-right corner of the plot.
                 </p>
+                <div style="display: flex; flex-direction: column; align-items: center; max-width: 50%;">
+                <img src="../assets/gifs/plot.gif"
+                alt="Delta Modulation Practical Circuit Diagram" 
+                style="width: 100%; height: 300px; object-fit: contain; border: 1px solid #00d9ff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);background-color: #17191f;">
+                <p><br><br></p>
             </div>
         </div>
+        <h2 class="content-title">Procedure Video</h2>
+        <div style="display: flex; justify-content: center; margin: 30px 0;">
+            
+            <div style="
+                position: relative;
+                width: 60%;
+                max-width: 1100px;
+                aspect-ratio: 16 / 9;
+                background-color: #17191f;
+                border: 1px solid #00d9ff;
+                border-radius: 10px;
+                box-shadow: 0 0 12px rgba(0, 217, 255, 0.25);
+                overflow: hidden;
+            ">
+                <iframe 
+                    src="https://www.youtube-nocookie.com/embed/hBrqlE25lGs?si=RQyyz4BmQgQgOxQw?rel=0&modestbranding=1"
+                    title="Delta Modulation Explanation"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    
+                    style="
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 10px;
+                    ">
+                </iframe>
+            </div>
+
+        </div>
+    </div>
+
     </main>
 </body>
 </html>

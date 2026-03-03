@@ -50,7 +50,7 @@
         <li class="nav-item"><a href="pretest.html">PRE-TEST</a></li>
         <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
         <li class="nav-item active"><a href="posttest.html">POST-TEST</a></li>
-        <li class="nav-item"><a href="reference.html">REFERENCE</a></li>
+        <!--<li class="nav-item"><a href="reference.html">REFERENCE</a></li>-->
     </ul>
 </nav>
 
@@ -100,24 +100,15 @@
 <p class="feedback" id="f4"></p>
 </div>
 
+
 <!-- Q5 -->
 <div class="mcq-card">
-<h3 class="mcq-question">Q5: Adaptive Delta Modulation performs better than DM mainly because it?</h3>
-<label class="mcq-option"><input type="radio" name="q5" value="a"> Uses multiple bits per sample</label>
-<label class="mcq-option"><input type="radio" name="q5" value="b"> Adjusts step size based on signal behavior</label>
-<label class="mcq-option"><input type="radio" name="q5" value="c"> Operates at Nyquist rate</label>
-<label class="mcq-option"><input type="radio" name="q5" value="d"> Eliminates feedback</label>
+<h3 class="mcq-question">Q5: From the simulation perspective, Delta Modulation is unsuitable for?</h3>
+<label class="mcq-option"><input type="radio" name="q5" value="a"> Slowly varying speech signals</label>
+<label class="mcq-option"><input type="radio" name="q5" value="b"> Signals with steep slopes</label>
+<label class="mcq-option"><input type="radio" name="q5" value="c"> Low-frequency analog signals</label>
+<label class="mcq-option"><input type="radio" name="q5" value="d"> Narrowband signals</label>
 <p class="feedback" id="f5"></p>
-</div>
-
-<!-- Q6 -->
-<div class="mcq-card">
-<h3 class="mcq-question">Q6: From the simulation perspective, Delta Modulation is unsuitable for?</h3>
-<label class="mcq-option"><input type="radio" name="q6" value="a"> Slowly varying speech signals</label>
-<label class="mcq-option"><input type="radio" name="q6" value="b"> Signals with steep slopes</label>
-<label class="mcq-option"><input type="radio" name="q6" value="c"> Low-frequency analog signals</label>
-<label class="mcq-option"><input type="radio" name="q6" value="d"> Narrowband signals</label>
-<p class="feedback" id="f6"></p>
 </div>
 
 <button type="button" class="simulate-btn" onclick="checkAnswers()">Check Answers</button>
@@ -134,8 +125,7 @@ function checkAnswers() {
         q2: "b",
         q3: "b",
         q4: "b",
-        q5: "b",
-        q6: "b"
+        q5: "b"
     };
 
     Object.keys(answers).forEach((q, index) => {

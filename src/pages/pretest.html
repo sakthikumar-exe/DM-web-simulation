@@ -50,7 +50,7 @@
         <li class="nav-item active"><a href="pretest.html">PRE-TEST</a></li>
         <li class="nav-item"><a href="simulation.html">SIMULATION</a></li>
         <li class="nav-item"><a href="posttest.html">POST-TEST</a></li>
-        <li class="nav-item"><a href="reference.html">REFERENCE</a></li>
+        <!--<li class="nav-item"><a href="reference.html">REFERENCE</a></li>-->
     </ul>
 </nav>
 
@@ -110,15 +110,6 @@
 <p class="feedback" id="f5"></p>
 </div>
 
-<!-- Q6 -->
-<div class="mcq-card">
-<h3 class="mcq-question">Q6: Adaptive Delta Modulation improves performance by?</h3>
-<label class="mcq-option"><input type="radio" name="q6" value="a"> Increasing bandwidth</label>
-<label class="mcq-option"><input type="radio" name="q6" value="b"> Varying the step size dynamically</label>
-<label class="mcq-option"><input type="radio" name="q6" value="c"> Reducing sampling frequency</label>
-<label class="mcq-option"><input type="radio" name="q6" value="d"> Eliminating quantization</label>
-<p class="feedback" id="f6"></p>
-</div>
 
 <button type="button" class="simulate-btn" onclick="checkAnswers()">Check Answers</button>
 
@@ -135,7 +126,6 @@ function checkAnswers() {
         q3: "b",
         q4: "a",
         q5: "a",
-        q6: "b"
     };
 
     Object.keys(answers).forEach((q, index) => {
