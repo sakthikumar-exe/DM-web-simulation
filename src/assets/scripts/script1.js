@@ -15,10 +15,10 @@ function simulateDM() {
     }
 
     //setting time window do that the plot appears clearly
-    //the plot is set to show only 7 cycles
+    //the plot is set to show only 2 cycles
     let fmax = Math.max(fm1);
     if (fmax === 0) fmax = 1;
-    const cyclesToShow = 2.5;
+    const cyclesToShow = 2;
     const Tview = cyclesToShow / fmax;
     //computing sampling freq for plotting
     const Fs = 1e3 * fmax;
@@ -139,6 +139,22 @@ function simulateDM() {
         showlegend: false,hoverinfo: 'x+y'
       },
       {
+        //bits display over bitstream
+        x: td.slice(0, y.length).map((t, i) => t + (1 / Fd) / 2),
+        y: y.map(() => 1.1),
+        text: y.map(bit => bit === 1 ? '1' : '0'),
+        type: 'scatter',
+        mode: 'text',
+        textfont: { size: 10, color: 'blue' },
+        textposition: 'middle center',
+        name: 'Bit Labels',
+        xaxis: 'x4',
+        yaxis: 'y4',
+        showlegend: false,
+        hoverinfo: 'none',
+        cliponaxis: true
+      },
+      {
         //integrator (modulator)
         x: x_recon1.time,
         y: x_recon1.signal,
@@ -187,7 +203,7 @@ function simulateDM() {
       yaxis:  { title: 'Amplitude', range: [yMin, yMax], titlefont: { size: 12 },fixedrange: true  },
       yaxis2: { title: 'Amplitude', range: [-0.5, 1.5], titlefont: { size: 12 },fixedrange: true  },
       yaxis3: { title: 'Amplitude', range: [-1.5, 1.5], titlefont: { size: 12 },fixedrange: true   },
-      yaxis4: { title: 'Amplitude', range: [-0.5, 1.5], titlefont: { size: 12 },fixedrange: true   },
+      yaxis4: { title: 'Amplitude', range: [-0.5, 1.4], titlefont: { size: 12 }, fixedrange: true },
       yaxis5: { title: 'Amplitude', range: [yMin, yMax], titlefont: { size: 12},fixedrange: true  },
       yaxis6: { title: 'Amplitude', range: [yMin, yMax], titlefont: { size: 12},fixedrange: true  },
       yaxis7: { title: 'Amplitude', range: [yMin, yMax], titlefont: { size: 12},fixedrange: true  },
@@ -209,7 +225,7 @@ function simulateDM() {
         { text: 'Message Signal', x: 0.5, y: 1.02,  xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'red' } },
         { text: 'Sampling Signal', x: 0.5, y: 0.853,  xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'orange' } },
         { text: 'Comparator Output', x: 0.5, y: 0.71,  xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'purple' } },
-        { text: 'Digital Sampler Output (Delta Modulated Bitstream)', x: 0.5, y: 0.545,  xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'blue' } },
+        { text: 'Digital Sampler Output (Delta Modulated Bitstream)', x: 0.5, y: 0.555,  xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'blue' } },
         { text: 'Integrator Output', x: 0.5, y: 0.415,  xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'green' } },
         { text: 'Accumulator Output', x: 0.5, y: 0.257, xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'dark grey' } },
         { text: 'Reconstruction Filter Output', x: 0.5, y: 0.107, xref: 'paper', yref: 'paper', showarrow: false, font: { size: 14, color: 'brown' } }
